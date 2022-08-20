@@ -3,10 +3,12 @@ import styled from "styled-components";
 
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: white;
   text-transform: uppercase;
-  transition: color 0.5s linear;
+  font-weight: 900;
+  color: black;
+  transition: color 0.2s linear;
+
   &:hover {
-    color: blue;
+    color: red;
   }
 `;
