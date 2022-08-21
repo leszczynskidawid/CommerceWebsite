@@ -1,0 +1,17 @@
+.category_fillter {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  background-color: aliceblue;
+}
+.category_fillter > li {
+  list-style: none;
+  padding: 20px 40px;
+}
+li:nth-child(2) {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
