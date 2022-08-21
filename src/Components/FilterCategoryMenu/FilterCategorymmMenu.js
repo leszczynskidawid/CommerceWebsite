@@ -1,15 +1,13 @@
 import "./style.css";
-import { NavLink } from "react-router-dom";
+
+import { StyledNavLink } from "../NavLinkMenu/style";
 export const FilterCategoryMenu = () => {
   return (
     <ul className="category_fillter">
-      <NavLink to={"/"}>all</NavLink>
-      <NavLink to={"/men's clothing"} activeClassnam>
-        men
-      </NavLink>
-      <NavLink to={"/women's clothing"}>women</NavLink>
-      <NavLink to={"/electronics"}>electronics</NavLink>
-      <NavLink to={"/jewelery"}>jewelery</NavLink>
+      <StyledNavLink to={"/men's clothing"}>men</StyledNavLink>
+      <StyledNavLink to={"/women's clothing"}>women</StyledNavLink>
+      <StyledNavLink to={"/electronics"}>electronics</StyledNavLink>
+      <StyledNavLink to={"/jewelery"}>jewelery</StyledNavLink>
     </ul>
   );
 };

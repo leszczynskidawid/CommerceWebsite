@@ -4,7 +4,7 @@ import { ShopProducts } from "../../Components/ShopProducts/ShopProducts";
 
 export const ProductsCategoryPage = () => {
   return (
-    <section style={{ marginTop: "100px" }}>
+    <section style={{ marginTop: "160px" }}>
       <Navbar />
       <FilterCategoryMenu />
       <ShopProducts />

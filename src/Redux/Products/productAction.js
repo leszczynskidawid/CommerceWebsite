@@ -19,12 +19,10 @@ export const productLoadError = (errors) => ({
   errors,
 });
 
-export const fetchBooks = (books) => {
-  return {
-    type: SUCCESS_FETCH_DATA,
-    books,
-  };
-};
+export const productLoadDetailsSuccess = (product) => ({
+  type: actionTypes.PRODUCT_LOAD_DETAILS_SUCCES,
+  product,
+});
 
 export const getAllProducts = async (dispatch) => {
   const { callApiRequest } = useRequest();
@@ -49,6 +47,19 @@ export const getProductsbyCategories = (endpointType) => async (dispatch) => {
       endpointType,
     );
     dispatch(productLoadSuccess(response));
+  } catch (error) {
+    dispatch(productLoadError(error.code));
+  }
+};
+export const getSingleProductsDetails = (id) => async (dispatch) => {
+  const { callApiRequest } = useRequest();
+  dispatch(productLoadStart());
+  try {
+    const response = await callApiRequest(
+      ApiClientMethodTypes.get,
+      `${apiClientEndpointsTypes.PRODUCTS_END_POINT}/${id}`,
+    );
+    dispatch(productLoadDetailsSuccess(response));
   } catch (error) {
     dispatch(productLoadError(error.code));
   }
