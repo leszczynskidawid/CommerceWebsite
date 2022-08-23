@@ -28,11 +28,12 @@ export const SImgContainer = styled.div`
   }
 `;
 export const SDescriptionProductContainer = styled.div`
-  padding: 50px;
+  padding: 30px;
   width: 50%;
   display: flex;
   flex-direction: column;
   transition: 0.5s all;
+  box-sizing: border-box;
 
   @media (max-width: 900px) {
     width: 100%;

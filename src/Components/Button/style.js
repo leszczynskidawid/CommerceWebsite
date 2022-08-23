@@ -8,7 +8,7 @@ export const SButton = styled.button`
   border-radius: 2px;
   letter-spacing: 1px;
   width: 50%;
-  margin: auto;
+
   cursor: pointer;
   &:hover {
     background-color: #c0c0c0;

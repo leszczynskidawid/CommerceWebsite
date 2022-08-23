@@ -14,7 +14,7 @@ import { addProductIntoCart } from "../../Redux/Cart/actionProductsCart";
 
 export const ProductDetails = () => {
   const { id } = useLocation().state;
-  const { product, isError, isLoading } = useSelector(
+  const { product, isLoading, isError } = useSelector(
     (state) => state.products,
   );
   const { image, title, price, description } = product;
@@ -23,13 +23,6 @@ export const ProductDetails = () => {
   useEffect(() => {
     dispatch(getSingleProductsDetails(id));
   }, []);
-
-  const cart = useSelector((state) => state.cart);
-  console.log(cart);
-
-  const addIntoPasket = () => {
-    dispatch(addProductIntoCart(product));
-  };
 
   return (
     <div>
@@ -57,7 +50,7 @@ export const ProductDetails = () => {
               <Button
                 text="asda"
                 type={"submit"}
-                action={() => addIntoPasket()}
+                action={() => dispatch(addProductIntoCart(product))}
               />
             </div>
           </SDescriptionProductContainer>

@@ -4,7 +4,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import { NavLinkMenu } from "../NavLinkMenu";
 import { BasketIcon } from "../BasketIcon/BaksetIcon";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector } from "react-redux";
+
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -13,7 +14,8 @@ export const Navbar = () => {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
-  const { cart } = useSelector((state) => state.cart);
+
+  const { cartQty } = useSelector((state) => state.cart);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -33,10 +35,10 @@ export const Navbar = () => {
       <ul className={`nav-menu ${open ? "active" : ""}`}>
         <NavLinkMenu path={"/"} name={"products"} />
         <NavLinkMenu path={"/a"} name={"contact"} />
-        <NavLinkMenu path={"/c"} name={" about me"} />
+        <NavLinkMenu path={"/card"} name={" about me"} />
         <NavLinkMenu
-          path="/basket"
-          name={<BasketIcon badgeContent={cart.length} />}
+          path="/card"
+          name={<BasketIcon badgeContent={cartQty} />}
         />
       </ul>
     </nav>
