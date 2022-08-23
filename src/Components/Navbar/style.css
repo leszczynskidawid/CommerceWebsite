@@ -12,7 +12,7 @@
   z-index: 999;
 }
 .nav-container.active {
-  background-color: grey;
+  background-color: whitesmoke;
   transition: 0.5s all;
   opacity: 0.9;
 }
@@ -25,20 +25,19 @@
 }
 
 button {
-  color: red;
   background: none;
   border: none;
   display: none;
 }
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   button {
     display: block;
   }
   .nav-menu {
     position: fixed;
-    top: 50px;
+    top: 100px;
     right: -110%;
-    background-color: cadetblue;
+    background-color: whitesmoke;
     width: 100%;
     display: flex;
     flex-direction: column;

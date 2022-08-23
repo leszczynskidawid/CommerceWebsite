@@ -23,6 +23,12 @@ export const productsReducers = (state = productsInitialValue, action) => {
         isLoading: false,
         isError: action.errors,
       };
+    case actionTypes.PRODUCT_LOAD_DETAILS_SUCCES:
+      return {
+        ...state,
+        isLoading: false,
+        product: action.product,
+      };
     default:
       return state;
   }

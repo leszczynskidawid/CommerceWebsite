@@ -1,47 +1,69 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getSingleProductsDetails } from "../../Redux/Products/productAction";
+
+import {
+  SProductDetailsContainer,
+  SImgContainer,
+  SDescriptionProductContainer,
+  SImg,
+} from "./style";
+import { Button } from "../Button/Button";
+import { addProductIntoCart } from "../../Redux/Cart/actionProductsCart";
 
 export const ProductDetails = () => {
+  const { id } = useLocation().state;
+  const { product, isError, isLoading } = useSelector(
+    (state) => state.products,
+  );
+  const { image, title, price, description } = product;
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products/1")
-      .then((res) => res.json())
-      .then((json) => console.log(json));
-  });
+    dispatch(getSingleProductsDetails(id));
+  }, []);
+
+  const cart = useSelector((state) => state.cart);
+  console.log(cart);
+
+  const addIntoPasket = () => {
+    dispatch(addProductIntoCart(product));
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        padding: "20px",
-        justifyContent: "space-between",
-      }}
-    >
-      <div>
-        <img
-          src="#"
-          style={{ width: "400px", height: "600px", background: "grey" }}
-        />
-      </div>
-      <div
-        style={{ padding: "50px", display: "flex", flexDirection: "column " }}
-      >
-        <h1>Lounge Tunic </h1>
-        <span>50$</span>
-        <div>
-          <h3>description</h3>
-          <span>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. i
-          </span>
-        </div>
-        <div>
-          <h3>Details</h3>
-          <div>opis jalkos tam </div>
-        </div>
-        <div>
-          <input type="text" id="fname" name="fname"></input>
-          <input type="text" id="fname" name="fname"></input>
-          <button type="button">Click Me!</button>
-        </div>
-      </div>
+    <div>
+      {isLoading ? (
+        <div>loading....</div>
+      ) : (
+        <SProductDetailsContainer>
+          <SImgContainer>
+            <SImg src={image} alt={"product"} />
+          </SImgContainer>
+          <SDescriptionProductContainer>
+            <h1>{title} </h1>
+            <span>{price}$</span>
+            <div>
+              <h3>Description</h3>
+              <span>{description}</span>
+            </div>
+            <div>
+              <h3>Details</h3>
+              <div>{title}</div>
+            </div>
+            <div>
+              <input type="text" id="fname" name="fname"></input>
+              <input type="text" id="fname" name="fname"></input>
+              <Button
+                text="asda"
+                type={"submit"}
+                action={() => addIntoPasket()}
+              />
+            </div>
+          </SDescriptionProductContainer>
+        </SProductDetailsContainer>
+      )}
+      {isError && <div>{isError}</div>}
     </div>
   );
 };
