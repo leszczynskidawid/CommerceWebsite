@@ -4,10 +4,10 @@ import styled from "styled-components";
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   text-transform: uppercase;
-  font-weight: 900;
+  font-weight: ${(props) => (props.bold === "bold" ? 200 : 900)};
   color: black;
   transition: color 0.2s linear;
-  padding: 0 10px;
+  padding: ${(props) => (props.padding === "padding" ? "10px 0" : "0 10px")};
   &.active {
     color: red;
   }

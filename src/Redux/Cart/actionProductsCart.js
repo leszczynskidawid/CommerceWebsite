@@ -1,3 +1,6 @@
+import { toast } from "react-toastify";
+import { deleyFunction } from "../../helpers/deleyFunction";
+import { closeModalWindow } from "../ModalState/actionModal";
 import { actionTypesCart } from "./productsCartActionTypes";
 export const loadProductCart = () => ({
   type: actionTypesCart.PRODUCT_INTO_CART_START,
@@ -23,3 +26,18 @@ export const loadErrorCart = (error) => ({
   type: actionTypesCart.PRODUCT_INTO_CART_ERROR,
   error,
 });
+
+export const addProductIntoCartThunk = (product) => async (dispatch) => {
+  dispatch(loadProductCart());
+  toast.success("dodano");
+  await deleyFunction(2000);
+
+  dispatch(addProductIntoCart(product));
+};
+
+export const deleteProductFromCartThunk = (product) => async (dispatch) => {
+  dispatch(loadProductCart());
+  dispatch(closeModalWindow());
+  await deleyFunction(1000);
+  dispatch(deleteProductFromCart(product));
+};

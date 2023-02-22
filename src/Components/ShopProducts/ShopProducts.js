@@ -6,6 +6,7 @@ import { getProductsbyCategories } from "../../Redux/Products/productAction";
 import { useParams } from "react-router-dom";
 import { SProductsContainer } from "../Products/style";
 import { ProductCard } from "../ProductCard/ProductCard";
+import CircularIndeterminateLoader from "../Spinner/style";
 
 export const ShopProducts = () => {
   const { isLoading, products, isError } = useSelector(
@@ -25,7 +26,7 @@ export const ShopProducts = () => {
   return (
     <SProductsContainer>
       {isLoading ? (
-        <div>Loadinf....</div>
+        <CircularIndeterminateLoader />
       ) : (
         products?.map((product) => (
           <ProductCard key={product.id} data={product} />

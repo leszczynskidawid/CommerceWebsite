@@ -1,20 +1,35 @@
 import styled from "styled-components";
 
 export const SWrapperListElement = styled.div`
+  position: relative;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   grid-auto-rows: 1fr;
-  grid-template-columns: 1fr 3fr 1.5fr 0.8fr 0.4fr;
+  grid-template-columns: 1fr 3fr 1.5fr 0.8fr 0.1fr;
   grid-template-rows: 1fr;
-  gap: 0px 0px;
   border-bottom: 1px solid black;
   margin-bottom: 10px;
 
-  @media (max-width: 500px) {
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 720px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
+`;
+export const SProductNameContainer = styled.div`
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  padding: 10px;
+`;
+export const SProductPriceContainer = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 10px;
+  text-align: center;
 `;
 
 export const SImgContainer = styled.div`
@@ -31,5 +46,10 @@ export const SImg = styled.img`
 
 export const SQtyChangerContainer = styled.div`
   display: flex;
-  width: 150px;
+  justify-content: center;
+`;
+export const SDeleteProductButtonContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
