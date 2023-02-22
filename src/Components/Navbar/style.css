@@ -9,7 +9,7 @@
   left: 0;
   right: 0;
   padding: 0 50px;
-  z-index: 999;
+  z-index: 9;
 }
 .nav-container.active {
   background-color: whitesmoke;
@@ -36,7 +36,7 @@ button {
   .nav-menu {
     position: fixed;
     top: 100px;
-    right: -110%;
+    right: -150%;
     background-color: whitesmoke;
     width: 100%;
     display: flex;

@@ -1,8 +1,8 @@
 import { SButton } from "./style";
 
-export const Button = ({ text, type, action }) => {
+export const Button = ({ text, type, action, form }) => {
   return (
-    <SButton type={type} onClick={action}>
+    <SButton type={type} onClick={action} form={form}>
       {text}
     </SButton>
   );

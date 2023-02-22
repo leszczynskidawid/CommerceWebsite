@@ -2,9 +2,7 @@ import styled from "styled-components";
 
 export const SProductDetailsContainer = styled.div`
   display: flex;
-  padding: 10px;
-  width: 90%;
-  margin: 90px auto;
+  margin: 100px auto;
   justify-content: center;
   align-items: center;
   transition: 0.5s all;

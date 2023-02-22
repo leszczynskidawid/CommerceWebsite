@@ -3,6 +3,7 @@ import { SProductsContainer } from "./style";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllProducts } from "../../Redux/Products/productAction";
+import CircularIndeterminateLoader from "../Spinner/style";
 
 export const Products = () => {
   const { isLoading, products, isError } = useSelector(
@@ -10,6 +11,7 @@ export const Products = () => {
   );
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllProducts);
   }, []);
@@ -17,7 +19,7 @@ export const Products = () => {
   return (
     <SProductsContainer>
       {isLoading ? (
-        <div>Loadinf....</div>
+        <CircularIndeterminateLoader />
       ) : (
         products?.map((product) => (
           <ProductCard key={product.id} data={product} />

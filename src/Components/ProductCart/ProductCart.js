@@ -1,67 +1,70 @@
 import { Button } from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ProductCartElementList } from "../ProductCartElemntList/ProductCartElementList";
+import { SContainerListProductsCart, SWrapper } from "./style";
+import { SSummaryPricesButtonContainer } from "../AsideSummaryProductsOrder/style";
+import { TitleH1Text } from "../TitleText";
 
 export const ProductCart = () => {
+  const navigate = useNavigate();
   const { cart } = useSelector((state) => state.cart);
   const checkIsEmptyCart = cart?.length;
-  const cartState = useSelector((state) => state.cart);
 
-  console.log(cartState);
-
-  const xd = cart.map((object) => {
+  const sumPrice = cart.map((object) => {
     return object.price * object.quantity;
   });
+
   let sum = 0;
-  xd.forEach((element) => {
+  sumPrice.forEach((element) => {
     sum += element;
   });
-  console.log(sum);
+
   return (
-    <div>
+    <>
       {checkIsEmptyCart > 0 ? (
-        <div
-          style={{
-            display: "flex",
-            width: "90%",
-            margin: "auto",
-            flexDirection: "column",
-            height: "200px",
-          }}
-        >
-          <h1>Twoj koszyk</h1>
-          {cart.map((data) => (
-            <ProductCartElementList data={data} key={data.id} />
-          ))}
+        <SWrapper>
+          <div>
+            <SContainerListProductsCart>
+              <TitleH1Text text="Twoje przedmioty" />
+              {cart.map((data) => (
+                <ProductCartElementList data={data} key={data.id} />
+              ))}
+            </SContainerListProductsCart>
+          </div>
           <div
             style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "flex-end",
+              position: "sticky",
+              top: "100px",
+              height: "40vh",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "40%",
+            <SSummaryPricesButtonContainer border>
+              <div
+                style={{
+                  display: "flex",
+                  padding: "10px 10px ",
+                  fontSize: "70px",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p>Razem:{sum.toFixed(2)}zł</p>
+              </div>
 
-                alignItems: "flex-end",
-              }}
-            >
-              <span>
-                Suma <strong>{sum}</strong>
-              </span>
-              <Button type={"submit"} text="Kup" />
-            </div>
+              <Button
+                type={"submit"}
+                text="Przejdź do dostawy"
+                action={() => navigate("/checkout")}
+              />
+            </SSummaryPricesButtonContainer>
           </div>
-        </div>
+        </SWrapper>
       ) : (
         <div>
           <h1>Shopping cart</h1>
           <span>Twoj koszyk jest pusty </span>
         </div>
       )}
-    </div>
+    </>
   );
 };

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleProductsDetails } from "../../Redux/Products/productAction";
 
@@ -10,13 +10,18 @@ import {
   SImg,
 } from "./style";
 import { Button } from "../Button/Button";
-import { addProductIntoCart } from "../../Redux/Cart/actionProductsCart";
+import { addProductIntoCartThunk } from "../../Redux/Cart/actionProductsCart";
+import CircularIndeterminateLoader from "../Spinner/style";
+import { TitleH1Text } from "../TitleText";
+import { toast } from "react-toastify";
 
 export const ProductDetails = () => {
-  const { id } = useLocation().state;
-  const { product, isLoading, isError } = useSelector(
-    (state) => state.products,
-  );
+  const { id } = useParams();
+
+  const { product, isLoading } = useSelector((state) => state.products);
+  const cart = useSelector((state) => state.cart);
+  console.log(product);
+
   const { image, title, price, description } = product;
   const dispatch = useDispatch();
 
@@ -27,14 +32,14 @@ export const ProductDetails = () => {
   return (
     <div>
       {isLoading ? (
-        <div>loading....</div>
+        <CircularIndeterminateLoader />
       ) : (
         <SProductDetailsContainer>
           <SImgContainer>
             <SImg src={image} alt={"product"} />
           </SImgContainer>
           <SDescriptionProductContainer>
-            <h1>{title} </h1>
+            <TitleH1Text text={title} />
             <span>{price}$</span>
             <div>
               <h3>Description</h3>
@@ -44,19 +49,22 @@ export const ProductDetails = () => {
               <h3>Details</h3>
               <div>{title}</div>
             </div>
+
             <div>
-              <input type="text" id="fname" name="fname"></input>
-              <input type="text" id="fname" name="fname"></input>
               <Button
-                text="asda"
+                text={cart.isLoading ? "...dodoawanie" : "dodaj"}
                 type={"submit"}
-                action={() => dispatch(addProductIntoCart(product))}
+                action={() => dispatch(addProductIntoCartThunk(product))}
+              />
+              <Button
+                text={cart.isLoading ? "...dodoawanie" : "dodaj"}
+                type={"submit"}
+                action={() => toast("first toast")}
               />
             </div>
           </SDescriptionProductContainer>
         </SProductDetailsContainer>
       )}
-      {isError && <div>{isError}</div>}
     </div>
   );
 };

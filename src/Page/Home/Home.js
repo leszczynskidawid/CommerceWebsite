@@ -1,8 +1,7 @@
-import { FilterCategoryMenu } from "../../Components/FilterCategoryMenu/FilterCategorymmMenu";
+import { FilterCategoryMenu } from "../../Components/FilterCategoryMenu/FilterCategoryMenu";
+import { Footer } from "../../Components/Footer";
 import { Header } from "../../Components/Header/Header";
 import { Products } from "../../Components/Products/Products";
-
-Header;
 
 export const Home = () => {
   return (
@@ -10,6 +9,7 @@ export const Home = () => {
       <Header />
       <FilterCategoryMenu />
       <Products />
+      <Footer />
     </>
   );
 };

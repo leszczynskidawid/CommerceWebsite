@@ -4,6 +4,6 @@ const { REACT_APP_API_URL } = process.env;
 
 export const apiClient = axios.create({
   baseURL: REACT_APP_API_URL,
-  timeout: 5000,
+  timeout: 30000,
   headers: { "X-Custom-Header": "foobar" },
 });

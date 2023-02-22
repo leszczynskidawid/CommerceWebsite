@@ -1,5 +1,6 @@
 import { apiClientEndpointsTypes } from "../../constants/apiClientEndpointsTypes";
 import { ApiClientMethodTypes } from "../../constants/ApiClientMethodTypes";
+
 import { useRequest } from "../../Hooks/useRequest";
 
 export const SUCCESS_FETCH_DATA = "SUCCESS_FETCH_DATA";
@@ -22,6 +23,10 @@ export const productLoadError = (errors) => ({
 export const productLoadDetailsSuccess = (product) => ({
   type: actionTypes.PRODUCT_LOAD_DETAILS_SUCCES,
   product,
+});
+export const productsFilteryCategoriesName = (category) => ({
+  type: actionTypes.PRODUCTS_FILTER_BY_CATEGORY_NAME,
+  category,
 });
 
 export const getAllProducts = async (dispatch) => {
@@ -59,8 +64,9 @@ export const getSingleProductsDetails = (id) => async (dispatch) => {
       ApiClientMethodTypes.get,
       `${apiClientEndpointsTypes.PRODUCTS_END_POINT}/${id}`,
     );
+
     dispatch(productLoadDetailsSuccess(response));
   } catch (error) {
-    dispatch(productLoadError(error.code));
+    dispatch(productLoadError(error.response.status));
   }
 };

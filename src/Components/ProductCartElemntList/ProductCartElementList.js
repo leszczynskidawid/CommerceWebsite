@@ -3,6 +3,9 @@ import {
   SImgContainer,
   SQtyChangerContainer,
   SImg,
+  SProductNameContainer,
+  SProductPriceContainer,
+  SDeleteProductButtonContainer,
 } from "./style";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -11,8 +14,9 @@ import { useDispatch } from "react-redux";
 import {
   addProductIntoCart,
   decreseQuantityProduct,
-  deleteProductFromCart,
+  deleteProductFromCartThunk,
 } from "../../Redux/Cart/actionProductsCart";
+import { openModalWindow } from "../../Redux/ModalState/actionModal";
 
 export const ProductCartElementList = ({ data }) => {
   const dispatch = useDispatch();
@@ -22,17 +26,10 @@ export const ProductCartElementList = ({ data }) => {
       <SImgContainer>
         <SImg src={data.image} alt="a" />
       </SImgContainer>
-      <div
-        style={{
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
-          maxWidth: "500px",
-          padding: "20px",
-        }}
-      >
+
+      <SProductNameContainer>
         <span>{data.title}</span>
-      </div>
+      </SProductNameContainer>
 
       <SQtyChangerContainer>
         <div onClick={() => dispatch(addProductIntoCart(data))}>
@@ -46,12 +43,26 @@ export const ProductCartElementList = ({ data }) => {
           {data.quantity > 1 ? <RemoveIcon /> : null}
         </div>
       </SQtyChangerContainer>
-      <div>
-        <span>{data.quantity * data.price}$</span>
-      </div>
-      <div onClick={() => dispatch(deleteProductFromCart(data.id))}>
+
+      <SProductPriceContainer>
+        <span>{(data.quantity * data.price).toFixed(2)}$</span>
+      </SProductPriceContainer>
+      <SDeleteProductButtonContainer
+        onClick={() =>
+          dispatch(
+            openModalWindow(
+              {
+                title: "delete",
+                message: "do you want delete",
+                action: () => dispatch(deleteProductFromCartThunk(data.id)),
+              },
+              "delete",
+            ),
+          )
+        }
+      >
         <CloseIcon />
-      </div>
+      </SDeleteProductButtonContainer>
     </SWrapperListElement>
   );
 };

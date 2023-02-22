@@ -5,6 +5,7 @@ import { ApiClientMethodTypes } from "../constants/ApiClientMethodTypes";
 export const useRequest = () => {
   const callApiRequest = async (method, path, config, body) => {
     let response = null;
+
     if (
       method === ApiClientMethodTypes.get ||
       method === ApiClientMethodTypes.delete
