@@ -3,41 +3,92 @@ import { actionTypesCart } from "./productsCartActionTypes";
 
 export const reducersCart = (state = initialValueProductsCart, action) => {
   switch (action.type) {
-    case actionTypesCart.PRODUCT_INTO_CART_START:
-      return {
-        ...state,
-        isLoading: true,
-        cart: null,
-        isErrors: null,
-      };
-
     case actionTypesCart.ADD_PRODUCT_INTO_CART_SUCCESS: {
-      const checkPrductExist = state.cart.find(
+      const sumqty = state.cart.reduce((prevValue, currentValue) => {
+        return prevValue + currentValue.quantity;
+      }, 1);
+
+      const exist = state.cart.find(
         (product) => product.id === action.product.id,
       );
 
-      if (!checkPrductExist) {
+      if (exist) {
+        const item = state.cart.map((product) =>
+          product.id === action.product.id
+            ? { ...product, quantity: product.quantity + 1 }
+            : product,
+        );
         return {
           ...state,
-          isLoading: false,
-          cart: [...state.cart, action.product],
+          cart: item,
+          cartQty: sumqty,
+        };
+      } else {
+        const product = action.product;
+        return {
+          ...state,
+          cart: [...state.cart, { ...product, quantity: 1 }],
+          cartQty: sumqty,
+        };
+      }
+    }
+
+    case actionTypesCart.DECRASE_QUANTINTY_PRODUCTS: {
+      // let copyCart = state.cart.map((obj) => {
+      //   if (obj.id === action.id && obj.quantity > 1) {
+      //     return { ...obj, quantity: obj.quantity - 1 };
+      //   }
+      //   return {
+      //     cart: obj,
+      //   };
+      // });
+      // return {
+      //   cart: copyCart,
+      // };
+
+      const exist = state.cart.find((product) => product.id === action.id);
+
+      if (exist) {
+        const item = state.cart.map((product) =>
+          product.id === action.id
+            ? { ...product, quantity: product.quantity - 1 }
+            : product,
+        );
+        const sumqty = item.reduce((prevValue, currentValue) => {
+          return prevValue + currentValue.quantity;
+        }, 0);
+        return {
+          ...state,
+          cart: item,
+          cartQty: sumqty,
         };
       }
       break;
     }
+    case actionTypesCart.DELETE_PRODUCT_INTO_CART_SUCCESS: {
+      const copy = state.cart.filter((product) => product.id !== action.id);
 
-    case actionTypesCart.DELETE_PRODUCT_INTO_CART_SUCCESS:
+      const sum = copy?.reduce((prev, curentValue) => {
+        return prev + curentValue.quantity;
+      }, 0);
+
       return {
         ...state,
-        isLoading: false,
-        isError: action.errors,
+        cart: copy,
+        cartQty: sum,
       };
-    case actionTypesCart.PRODUCT_INTO_CART_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-        product: action.product,
-      };
+    }
+    // case actionTypesCart.SUMMARY_QUANTITY_PRODUCT_INTO_CART: {
+    //   const sumqty = state.cart.reduce((prevValue, currentValue) => {
+    //     return prevValue + currentValue.quantity;
+    //   }, 0);
+
+    //   return {
+    //     ...state,
+    //     cartQty: sumqty,
+    //   };
+    // }
+
     default:
       return state;
   }

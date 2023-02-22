@@ -6,7 +6,6 @@ export const ProductDetailsPage = () => {
     <>
       <Navbar />
       <ProductDetails />
-      <footer>siema</footer>
     </>
   );
 };

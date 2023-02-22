@@ -1,5 +1,4 @@
 export const initialValueProductsCart = {
-  isLoading: true,
   cart: [],
-  isErrors: null,
+  cartQty: 0,
 };
